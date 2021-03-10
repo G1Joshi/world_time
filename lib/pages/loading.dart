@@ -32,7 +32,33 @@ class _LoadingState extends State<Loading> {
         title: Text('Loading'),
       ),
       body: SafeArea(
-        child: Text(time),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                (time == 'Not Found!' || time == 'loading...')
+                    ? time
+                    : 'Date : ${time.substring(0, 10)}',
+                style: TextStyle(
+                  color: Colors.lightBlueAccent,
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                (time == 'Not Found!' || time == 'loading...')
+                    ? time
+                    : 'Time : ${time.substring(11, 19)}',
+                style: TextStyle(
+                  color: Colors.lightBlueAccent,
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

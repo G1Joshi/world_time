@@ -15,16 +15,18 @@ class _HomeState extends State<Home> {
         title: Text('Home'),
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, '/location');
-              },
-              icon: Icon(Icons.edit_location),
-              label: Text('Edit Location'),
-            ),
-          ],
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/location');
+                },
+                icon: Icon(Icons.edit_location),
+                label: Text('Edit Location'),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -17,7 +17,7 @@ class WorldTime {
     String datetime = data['datetime'];
     String hours = data['utc_offset'].substring(1, 3);
     String minutes = data['utc_offset'].substring(4, 6);
-    
+
     DateTime now = DateTime.parse(datetime)
         .add(Duration(hours: int.parse(hours)))
         .add(Duration(minutes: int.parse(minutes)));

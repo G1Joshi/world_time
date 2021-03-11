@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
   String url;
@@ -22,7 +23,7 @@ class WorldTime {
       DateTime now = DateTime.parse(datetime)
           .add(Duration(hours: int.parse(hours)))
           .add(Duration(minutes: int.parse(minutes)));
-      time = now.toString();
+      time = DateFormat.jm().format(now);
     } catch (e) {
       time = 'Not Found!';
     }

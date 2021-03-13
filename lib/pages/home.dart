@@ -42,79 +42,77 @@ class _HomeState extends State<Home> {
 
       return Scaffold(
         backgroundColor: backColor[data['day']],
-        body: SafeArea(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://raw.githubusercontent.com/G1Joshi/Assets/main/Time/${data['day']}.png'),
-                fit: BoxFit.cover,
-              ),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  'https://raw.githubusercontent.com/G1Joshi/Assets/main/Time/${data['day']}.png'),
+              fit: BoxFit.cover,
             ),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 120, 0, 0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <SizedBox>[
-                      SizedBox(
-                        height: 50.0,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Text(
-                    data['location'].toUpperCase(),
-                    style: TextStyle(
-                      color: textColor[data['day']],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40.0,
-                      letterSpacing: 2.0,
+          ),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 100, 0, 50),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <SizedBox>[
+                    SizedBox(
+                      height: 50.0,
                     ),
+                  ],
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Text(
+                  data['location'].toUpperCase(),
+                  style: TextStyle(
+                    color: textColor[data['day']],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40.0,
+                    letterSpacing: 2.0,
                   ),
-                  SizedBox(
-                    height: 20.0,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  data['time'],
+                  style: TextStyle(
+                    color: textColor[data['day']],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 60.0,
+                    letterSpacing: 2.0,
                   ),
-                  Text(
-                    data['time'],
-                    style: TextStyle(
-                      color: textColor[data['day']],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 80.0,
-                      letterSpacing: 2.0,
-                    ),
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.edit_location_rounded,
+                    size: 50,
+                    color: textColor[data['day']],
                   ),
-                  SizedBox(
-                    height: 100.0,
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.edit_location,
-                      size: 60,
-                      color: textColor[data['day']],
-                    ),
-                    onPressed: () async {
-                      dynamic result =
-                          await Navigator.pushNamed(context, '/location');
-                      if (result != null) {
-                        setState(
-                          () {
-                            data = {
-                              'time': result['time'],
-                              'location': result['location'],
-                              'day': result['day'],
-                              'flag': result['flag']
-                            };
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
+                  onPressed: () async {
+                    dynamic result =
+                        await Navigator.pushNamed(context, '/location');
+                    if (result != null) {
+                      setState(
+                        () {
+                          data = {
+                            'time': result['time'],
+                            'location': result['location'],
+                            'day': result['day'],
+                            'flag': result['flag']
+                          };
+                        },
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ),

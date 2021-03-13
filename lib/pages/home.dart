@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_time/services/worldtime.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -7,10 +8,18 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   dynamic data = {};
-
   @override
   Widget build(BuildContext context) {
-    data = data.isNotEmpty ? data : ModalRoute.of(context)!.settings.arguments;
+    data = ModalRoute.of(context)!.settings.arguments;
+    if (data == null) {
+      WorldTime instance = WorldTime(location: 'india', gmt: '+05:30');
+      instance.getTime();
+      data = {
+        'location': instance.location,
+        'time': instance.time,
+        'day': instance.day,
+      };
+    }
 
     Map backColor = {
       'morning': Colors.lightBlue[800],
@@ -33,8 +42,7 @@ class _HomeState extends State<Home> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(
-                  'https://raw.githubusercontent.com/G1Joshi/Assets/main/Time/${data['day']}.png'),
+              image: AssetImage('assets/time/${data['day']}.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -52,7 +60,6 @@ class _HomeState extends State<Home> {
                           'time': result['time'],
                           'location': result['location'],
                           'day': result['day'],
-                          'flag': result['flag']
                         };
                       });
                     }
@@ -75,7 +82,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      data['location'],
+                      data['location'].toUpperCase(),
                       style: TextStyle(
                         color: textColor[data['day']],
                         fontWeight: FontWeight.bold,

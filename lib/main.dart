@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:world_time/pages/home.dart';
-import 'package:world_time/pages/loading.dart';
 import 'package:world_time/pages/location.dart';
 
 void main() => runApp(MyApp());
@@ -13,8 +12,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
+      home: Home(),
       routes: {
-        '/': (context) => Loading(),
         '/home': (context) => Home(),
         '/location': (context) => Location(),
       },

@@ -5,11 +5,10 @@ import 'package:intl/intl.dart';
 class WorldTime {
   String url;
   String location;
-  String flag;
   String time = 'loading...';
   late String day;
 
-  WorldTime({required this.url, required this.location, required this.flag});
+  WorldTime({required this.url, required this.location});
 
   Future<void> getTime() async {
     try {
@@ -17,6 +16,7 @@ class WorldTime {
           'www.worldtimeapi.org', '/api/timezone/$url', {'q': '{https}'});
       Response response = await get(api);
       Map data = jsonDecode(response.body);
+
       String datetime = data['datetime'];
       String hours = data['utc_offset'].substring(1, 3);
       String minutes = data['utc_offset'].substring(4, 6);
@@ -24,6 +24,7 @@ class WorldTime {
       DateTime now = DateTime.parse(datetime)
           .add(Duration(hours: int.parse(hours)))
           .add(Duration(minutes: int.parse(minutes)));
+
       if (now.hour >= 4 && now.hour < 10)
         day = 'morning';
       else if (now.hour >= 10 && now.hour < 13)

@@ -7,7 +7,7 @@ class WorldTime {
   String location;
   String flag;
   String time = 'loading...';
-  String? day;
+  late String day;
 
   WorldTime({required this.url, required this.location, required this.flag});
 

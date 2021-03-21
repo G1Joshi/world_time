@@ -53,7 +53,7 @@ class _LocationState extends State<Location> {
     WorldTime(location: 'usa', gmt: '-05:00'),
   ];
 
-  void updateTime(index) async {
+  Future<void> updateTime(index) async {
     WorldTime instance = locations[index];
     await instance.getTime();
     Navigator.pushReplacementNamed(

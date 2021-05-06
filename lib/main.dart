@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:world_time/pages/home.dart';
-import 'package:world_time/pages/location.dart';
+import 'package:world_time/views/home.dart';
+import 'package:world_time/views/location.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'World Time',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primaryColor: Colors.blueGrey,
       ),
       home: Home(),
       routes: {

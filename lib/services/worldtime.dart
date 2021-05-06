@@ -3,11 +3,13 @@ import 'package:intl/intl.dart';
 class WorldTime {
   String location;
   String gmt;
+
   late String time;
   late String day;
 
   WorldTime({required this.location, required this.gmt});
-  Future<void> getTime() async {
+
+  void getTime() {
     String hours = gmt.substring(0, 3);
     String minutes = gmt.substring(4, 6);
     DateTime now = DateTime.now()
@@ -24,6 +26,6 @@ class WorldTime {
       day = 'evening';
     else
       day = 'night';
-    time =  DateFormat.jm().format(now);
+    time = DateFormat.jm().format(now);
   }
 }

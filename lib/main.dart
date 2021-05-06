@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:world_time/views/home.dart';
 import 'package:world_time/views/location.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  setPathUrlStrategy();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

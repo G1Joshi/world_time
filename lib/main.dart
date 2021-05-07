@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
-import 'package:world_time/views/home.dart';
-import 'package:world_time/views/location.dart';
+import 'package:world_time/views/loading.dart';
 
 void main() {
   setPathUrlStrategy();
@@ -16,11 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blueGrey,
       ),
-      home: Home(),
-      routes: {
-        '/home': (context) => Home(),
-        '/location': (context) => Location(),
-      },
+      home: Loading(),
     );
   }
 }

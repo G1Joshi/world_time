@@ -9,7 +9,7 @@ class WorldTime {
 
   WorldTime({required this.location, required this.gmt});
 
-  void getTime() {
+  Future getTime() async {
     String hours = gmt.substring(0, 3);
     String minutes = gmt.substring(4, 6);
     DateTime now = DateTime.now()

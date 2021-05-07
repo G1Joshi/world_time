@@ -35,13 +35,13 @@ class _HomeState extends State<Home> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('time/${widget.data['day']}.png'),
+            image: AssetImage('assets/time/${widget.data['day']}.png'),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
           children: <Widget>[
-            Spacer(flex: 1),
+            Spacer(flex: 2),
             Text(
               widget.data['location'].toUpperCase(),
               style: TextStyle(
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
                 letterSpacing: 2.0,
               ),
             ),
-            Spacer(flex: 2),
+            Spacer(flex: 3),
             IconButton(
               onPressed: () {
                 Future.delayed(Duration.zero, () {
@@ -72,13 +72,13 @@ class _HomeState extends State<Home> {
                   );
                 });
               },
+              color: textColor[widget.data['day']],
+              iconSize: 60,
               icon: Icon(
                 Icons.edit_location_rounded,
-                size: 60,
-                color: textColor[widget.data['day']],
               ),
             ),
-            Spacer(flex: 3),
+            Spacer(flex: 2),
           ],
         ),
       ),

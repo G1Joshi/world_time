@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_time/models/sharedprefs.dart';
 import 'package:world_time/services/region.dart';
 import 'package:world_time/services/worldtime.dart';
 import 'package:world_time/views/home.dart';
@@ -11,7 +12,7 @@ class Location extends StatefulWidget {
 class _LocationState extends State<Location> {
   late List<WorldTime> locations = [];
 
-  void updateTime(index) {
+  Future updateTime(index) async {
     WorldTime instance = locations[index];
     instance.getTime();
     final data = {
@@ -19,6 +20,9 @@ class _LocationState extends State<Location> {
       'time': instance.time,
       'day': instance.day,
     };
+
+    await SharedPrefs.setData(data["location"], data["time"], data["day"]);
+
     Future.delayed(Duration.zero, () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -44,33 +48,35 @@ class _LocationState extends State<Location> {
         centerTitle: true,
       ),
       body: Container(
-        child: ListView.builder(
-          shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          itemCount: locations.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 2.0,
-                horizontal: 8.0,
-              ),
-              child: Card(
-                margin: EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            itemCount: locations.length,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: ListTile(
                     onTap: () => updateTime(index),
-                    title: Text(locations[index].location.toUpperCase()),
+                    title: Text(
+                      locations[index].location.toUpperCase(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     leading: CircleAvatar(
                       radius: 25,
-                      backgroundImage:
-                          AssetImage('flag/${locations[index].location}.png'),
+                      backgroundImage: AssetImage(
+                          'assets/flag/${locations[index].location}.png'),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

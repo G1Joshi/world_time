@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:world_time/services/worldtime.dart';
 import 'package:world_time/views/home.dart';
+import 'package:world_time/models/sharedprefs.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -9,13 +10,18 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   Future getDate() async {
+    dynamic data;
+    await SharedPrefs.init();
+    data = await SharedPrefs.getData();
+    if (data != null) return data;
     final instance = WorldTime(location: 'india', gmt: '+05:30');
     await instance.getTime();
-    final data = {
+    data = {
       'location': instance.location,
       'time': instance.time,
       'day': instance.day,
     };
+    await SharedPrefs.setData(data["location"], data["time"], data["day"]);
     return data;
   }
 

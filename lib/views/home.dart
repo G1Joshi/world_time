@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:world_time/services/worldtime.dart';
+import 'package:world_time/views/location.dart';
 
 class Home extends StatefulWidget {
+  final data;
+  Home({@required this.data});
+
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  late dynamic data = {};
-
   Map backColor = {
     'morning': Colors.lightBlue[800],
     'noon': Colors.lightBlue[300],
@@ -27,26 +28,14 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments;
-
-    if (data == null) {
-      WorldTime instance = WorldTime(location: 'india', gmt: '+05:30');
-      instance.getTime();
-      data = {
-        'location': instance.location,
-        'time': instance.time,
-        'day': instance.day,
-      };
-    }
-
     return Scaffold(
-      backgroundColor: backColor[data['day']],
+      backgroundColor: backColor[widget.data['day']],
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('time/${data['day']}.png'),
+            image: AssetImage('time/${widget.data['day']}.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -54,9 +43,9 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Spacer(flex: 1),
             Text(
-              data['location'].toUpperCase(),
+              widget.data['location'].toUpperCase(),
               style: TextStyle(
-                color: textColor[data['day']],
+                color: textColor[widget.data['day']],
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
                 letterSpacing: 2.0,
@@ -64,9 +53,9 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 25.0),
             Text(
-              data['time'],
+              widget.data['time'],
               style: TextStyle(
-                color: textColor[data['day']],
+                color: textColor[widget.data['day']],
                 fontWeight: FontWeight.bold,
                 fontSize: 50.0,
                 letterSpacing: 2.0,
@@ -74,11 +63,19 @@ class _HomeState extends State<Home> {
             ),
             Spacer(flex: 2),
             IconButton(
-              onPressed: () => Navigator.pushNamed(context, '/location'),
+              onPressed: () {
+                Future.delayed(Duration.zero, () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Location(),
+                    ),
+                  );
+                });
+              },
               icon: Icon(
-                Icons.edit_location,
+                Icons.edit_location_rounded,
                 size: 60,
-                color: textColor[data['day']],
+                color: textColor[widget.data['day']],
               ),
             ),
             Spacer(flex: 3),

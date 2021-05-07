@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:world_time/services/region.dart';
 import 'package:world_time/services/worldtime.dart';
+import 'package:world_time/views/home.dart';
 
 class Location extends StatefulWidget {
   @override
@@ -13,15 +14,18 @@ class _LocationState extends State<Location> {
   void updateTime(index) {
     WorldTime instance = locations[index];
     instance.getTime();
-    Navigator.pushReplacementNamed(
-      context,
-      '/home',
-      arguments: {
-        'location': instance.location,
-        'time': instance.time,
-        'day': instance.day,
-      },
-    );
+    final data = {
+      'location': instance.location,
+      'time': instance.time,
+      'day': instance.day,
+    };
+    Future.delayed(Duration.zero, () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => Home(data: data),
+        ),
+      );
+    });
   }
 
   @override

@@ -13,15 +13,13 @@ class _LoadingState extends State<Loading> {
     dynamic data;
     await SharedPrefs.init();
     data = await SharedPrefs.getData();
-    if (data != null) return data;
-    final instance = WorldTime(location: 'india', gmt: '+05:30');
+    final instance = WorldTime(location: data['location'], gmt: data['gmt']);
     await instance.getTime();
     data = {
       'location': instance.location,
       'time': instance.time,
       'day': instance.day,
     };
-    await SharedPrefs.setData(data["location"], data["time"], data["day"]);
     return data;
   }
 

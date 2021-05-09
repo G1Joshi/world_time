@@ -15,13 +15,14 @@ class _LocationState extends State<Location> {
   Future updateTime(index) async {
     WorldTime instance = locations[index];
     instance.getTime();
+
+    await SharedPrefs.setData(instance.location, instance.gmt);
+
     final data = {
       'location': instance.location,
       'time': instance.time,
       'day': instance.day,
     };
-
-    await SharedPrefs.setData(data["location"], data["time"], data["day"]);
 
     Future.delayed(Duration.zero, () {
       Navigator.of(context).pushReplacement(
